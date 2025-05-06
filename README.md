@@ -17,7 +17,7 @@ zig-tray is a library for creating tray applications. Supports tray and notifica
 
 ## Installation
 
-### Zig `0.12` \ `0.13.0`
+zig-tray uses Zig 0.14.0.
 
 1. Add to `build.zig.zon`
 
@@ -34,13 +34,13 @@ Add this:
 ```zig
 // To standardize development, maybe you should use `lazyDependency()` instead of `dependency()`
 // more info to see: https://ziglang.org/download/0.12.0/release-notes.html#toc-Lazy-Dependencies
-const zig_tray = b.dependency("zig-tray", .{
+const zig_tray = b.dependency("zig_tray", .{
     .target = target,
     .optimize = optimize,
 });
 
 // add module
-exe.root_module.addImport("zig-tray", zig_tray.module("tray"));
+exe_mod.addImport("zig-tray", zig_tray.module("tray"));
 ```
 
 ## Example
