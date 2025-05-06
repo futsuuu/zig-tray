@@ -1,11 +1,11 @@
 const std = @import("std");
 const tray = @import("tray");
 
-var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+var debug_allocator: std.heap.DebugAllocator(.{}) = .init;
 
 pub fn main() !void {
-    const allocator = gpa.allocator();
-    defer if (gpa.deinit() == .leak) @panic("TEST FAIL");
+    const allocator = debug_allocator.allocator();
+    defer if (debug_allocator.deinit() == .leak) @panic("TEST FAIL");
 
     var tray_instance = tray.Tray{};
     try tray_instance.init(

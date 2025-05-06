@@ -7,7 +7,7 @@ pub const WNDPROC = *const fn (
     uMsg: std.os.windows.UINT,
     wParam: std.os.windows.WPARAM,
     lParam: std.os.windows.LPARAM,
-) callconv(std.os.windows.WINAPI) std.os.windows.LRESULT;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.LRESULT;
 
 pub const MSG = extern struct {
     hWnd: ?std.os.windows.HWND,
@@ -47,24 +47,24 @@ pub extern "user32" fn CreateWindowExA(
     hMenu: ?std.os.windows.HMENU,
     hInstance: std.os.windows.HINSTANCE,
     lpParam: ?std.os.windows.LPVOID,
-) callconv(std.os.windows.WINAPI) ?std.os.windows.HWND;
+) callconv(std.builtin.CallingConvention.winapi) ?std.os.windows.HWND;
 
 pub extern "user32" fn RegisterClassExA(
     *const WNDCLASSEXA,
-) callconv(std.os.windows.WINAPI) std.os.windows.ATOM;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.ATOM;
 
 pub extern "user32" fn SetWindowLongPtrA(
     hWnd: std.os.windows.HWND,
     nIndex: i32,
     dwNewLong: std.os.windows.LONG_PTR,
-) callconv(std.os.windows.WINAPI) std.os.windows.LONG_PTR;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.LONG_PTR;
 
 pub extern "user32" fn GetMessageA(
     lpMsg: *MSG,
     hWnd: ?std.os.windows.HWND,
     wMsgFilterMin: std.os.windows.UINT,
     wMsgFilterMax: std.os.windows.UINT,
-) callconv(std.os.windows.WINAPI) std.os.windows.BOOL;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.BOOL;
 
 pub extern "user32" fn PeekMessageA(
     lpMsg: *MSG,
@@ -72,53 +72,53 @@ pub extern "user32" fn PeekMessageA(
     wMsgFilterMin: std.os.windows.UINT,
     wMsgFilterMax: std.os.windows.UINT,
     wRemoveMsg: std.os.windows.UINT,
-) callconv(std.os.windows.WINAPI) std.os.windows.BOOL;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.BOOL;
 
 pub extern "user32" fn TranslateMessage(
     lpMsg: *const MSG,
-) callconv(std.os.windows.WINAPI) std.os.windows.BOOL;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.BOOL;
 
 pub extern "user32" fn DispatchMessageA(
     lpMsg: *const MSG,
-) callconv(std.os.windows.WINAPI) std.os.windows.LRESULT;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.LRESULT;
 
 pub extern "user32" fn UpdateWindow(
     hWnd: std.os.windows.HWND,
-) callconv(std.os.windows.WINAPI) std.os.windows.BOOL;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.BOOL;
 
 pub extern "user32" fn PostQuitMessage(
     nExitCode: i32,
-) callconv(std.os.windows.WINAPI) void;
+) callconv(std.builtin.CallingConvention.winapi) void;
 
 pub extern "user32" fn UnregisterClassA(
     lpClassName: [*:0]const u8,
     hInstance: std.os.windows.HINSTANCE,
-) callconv(std.os.windows.WINAPI) std.os.windows.BOOL;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.BOOL;
 
 pub extern "user32" fn GetWindowLongPtrA(
     hWnd: std.os.windows.HWND,
     nIndex: i32,
-) callconv(std.os.windows.WINAPI) std.os.windows.LONG_PTR;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.LONG_PTR;
 
 pub extern "user32" fn DefWindowProcA(
     hWnd: std.os.windows.HWND,
     Msg: std.os.windows.UINT,
     wParam: std.os.windows.WPARAM,
     lParam: std.os.windows.LPARAM,
-) callconv(std.os.windows.WINAPI) std.os.windows.LRESULT;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.LRESULT;
 
 pub extern "user32" fn DestroyWindow(
     hWnd: std.os.windows.HWND,
-) callconv(std.os.windows.WINAPI) std.os.windows.BOOL;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.BOOL;
 
 pub extern "user32" fn GetDC(
     hWnd: ?std.os.windows.HWND,
-) callconv(std.os.windows.WINAPI) ?std.os.windows.HDC;
+) callconv(std.builtin.CallingConvention.winapi) ?std.os.windows.HDC;
 
 pub extern "user32" fn ReleaseDC(
     hWnd: ?std.os.windows.HWND,
     hDC: std.os.windows.HDC,
-) callconv(std.os.windows.WINAPI) i32;
+) callconv(std.builtin.CallingConvention.winapi) i32;
 
 pub const PM_REMOVE = 0x0001;
 pub const WM_DESTROY = 0x0002;
@@ -239,11 +239,11 @@ pub const ICONINFO = extern struct {
 
 pub extern "user32" fn GetCursorPos(
     lpPoint: [*c]std.os.windows.POINT,
-) callconv(std.os.windows.WINAPI) std.os.windows.BOOL;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.BOOL;
 
 pub extern "user32" fn SetForegroundWindow(
     hWnd: std.os.windows.HWND,
-) callconv(std.os.windows.WINAPI) std.os.windows.BOOL;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.BOOL;
 
 pub extern "user32" fn TrackPopupMenu(
     hMenu: std.os.windows.HMENU,
@@ -253,16 +253,16 @@ pub extern "user32" fn TrackPopupMenu(
     nReserved: i32,
     hWnd: std.os.windows.HWND,
     prcRect: [*c]const std.os.windows.RECT,
-) callconv(std.os.windows.WINAPI) std.os.windows.BOOL;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.BOOL;
 
 pub extern "user32" fn SendMessageA(
     hWnd: std.os.windows.HWND,
     uMsg: std.os.windows.UINT,
     wParam: std.os.windows.WPARAM,
     lParam: std.os.windows.LPARAM,
-) callconv(std.os.windows.WINAPI) std.os.windows.LRESULT;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.LRESULT;
 
-pub extern "user32" fn CreatePopupMenu() callconv(std.os.windows.WINAPI) std.os.windows.HMENU;
+pub extern "user32" fn CreatePopupMenu() callconv(std.builtin.CallingConvention.winapi) std.os.windows.HMENU;
 
 pub extern "user32" fn InsertMenuW(
     hMenu: std.os.windows.HMENU,
@@ -270,38 +270,38 @@ pub extern "user32" fn InsertMenuW(
     uFlags: std.os.windows.UINT,
     uIDNewItem: std.os.windows.ULONGLONG,
     lpNewItem: ?std.os.windows.LPCWSTR,
-) callconv(std.os.windows.WINAPI) std.os.windows.BOOL;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.BOOL;
 
 pub extern "user32" fn InsertMenuItemW(
     hMenu: std.os.windows.HMENU,
     item: std.os.windows.UINT,
     fByPosition: std.os.windows.BOOL,
     lpmi: [*c]MENUITEMINFOW,
-) callconv(std.os.windows.WINAPI) std.os.windows.BOOL;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.BOOL;
 
 pub extern "user32" fn DestroyMenu(
     hMenu: std.os.windows.HMENU,
-) callconv(std.os.windows.WINAPI) std.os.windows.BOOL;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.BOOL;
 
 pub extern "user32" fn DestroyIcon(
     hIcon: std.os.windows.HICON,
-) callconv(std.os.windows.WINAPI) std.os.windows.BOOL;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.BOOL;
 
 pub extern "user32" fn GetMenuItemInfoW(
     hMenu: std.os.windows.HMENU,
     item: std.os.windows.UINT,
     fByPosition: std.os.windows.BOOL,
     lpmii: [*c]MENUITEMINFOW,
-) callconv(std.os.windows.WINAPI) std.os.windows.BOOL;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.BOOL;
 
 pub extern "user32" fn CreateIconIndirect(
     piconinfo: [*c]ICONINFO,
-) callconv(std.os.windows.WINAPI) std.os.windows.HICON;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.HICON;
 
 pub extern "shell32" fn Shell_NotifyIconW(
     dwMessage: std.os.windows.DWORD,
     lpData: [*c]NOTIFYICONDATAW,
-) callconv(std.os.windows.WINAPI) std.os.windows.BOOL;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.BOOL;
 
 pub extern "shell32" fn ExtractIconExA(
     lpszFile: std.os.windows.LPCSTR,
@@ -309,7 +309,7 @@ pub extern "shell32" fn ExtractIconExA(
     phiconLarge: [*c]std.os.windows.HICON,
     phiconSmall: [*c]std.os.windows.HICON,
     nIcons: std.os.windows.UINT,
-) callconv(std.os.windows.WINAPI) std.os.windows.UINT;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.UINT;
 
 // TODO: pbmi is type of const BITMAPINFO*
 pub extern "gdi32" fn CreateDIBSection(
@@ -319,7 +319,7 @@ pub extern "gdi32" fn CreateDIBSection(
     ppvBits: [*c][*c]u8,
     hSection: ?std.os.windows.HANDLE,
     offset: std.os.windows.DWORD,
-) callconv(std.os.windows.WINAPI) ?HBITMAP;
+) callconv(std.builtin.CallingConvention.winapi) ?HBITMAP;
 
 pub extern "gdi32" fn CreateBitmap(
     nWidth: i32,
@@ -327,11 +327,11 @@ pub extern "gdi32" fn CreateBitmap(
     nPlanes: std.os.windows.UINT,
     nBitCount: std.os.windows.UINT,
     lpBits: ?*const anyopaque,
-) callconv(std.os.windows.WINAPI) ?HBITMAP;
+) callconv(std.builtin.CallingConvention.winapi) ?HBITMAP;
 
 pub extern "gdi32" fn DeleteObject(
     ho: HBITMAP,
-) callconv(std.os.windows.WINAPI) std.os.windows.BOOL;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.BOOL;
 
 pub extern "user32" fn CreateIconFromResourceEx(
     presbits: [*c]const u8,
@@ -341,7 +341,7 @@ pub extern "user32" fn CreateIconFromResourceEx(
     cxDesired: c_int,
     cyDesired: c_int,
     Flags: std.os.windows.UINT,
-) callconv(std.os.windows.WINAPI) ?std.os.windows.HICON;
+) callconv(std.builtin.CallingConvention.winapi) ?std.os.windows.HICON;
 
 pub extern "user32" fn LookupIconIdFromDirectoryEx(
     presbits: [*c]const u8,
@@ -349,7 +349,7 @@ pub extern "user32" fn LookupIconIdFromDirectoryEx(
     cxDesired: c_int,
     cyDesired: c_int,
     Flags: std.os.windows.UINT,
-) callconv(std.os.windows.WINAPI) c_int;
+) callconv(std.builtin.CallingConvention.winapi) c_int;
 
 pub const DPI_AWARENESS_CONTEXT = isize;
 
@@ -361,4 +361,4 @@ pub const DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED: DPI_AWARENESS_CONTEXT = -5;
 
 pub extern "user32" fn SetProcessDpiAwarenessContext(
     value: DPI_AWARENESS_CONTEXT,
-) callconv(std.os.windows.WINAPI) std.os.windows.BOOL;
+) callconv(std.builtin.CallingConvention.winapi) std.os.windows.BOOL;

@@ -7,31 +7,27 @@ pub fn build(b: *std.Build) !void {
     const optimize = b.standardOptimizeOption(.{});
 
     // export zig-tray module
-    const zigTray = switch (target.result.os.tag) {
+    const zig_tray = switch (target.result.os.tag) {
         .windows => b.addModule("tray", .{
             .root_source_file = b.path("src/tray_windows.zig"),
+            .target = target,
+            .optimize = optimize,
         }),
         else => @panic("Unsupported platform, now only support windows"),
     };
 
     // generate docs
-    generateDocs(b, target, optimize);
+    generateDocs(b, zig_tray);
 
     // build example
-    example(b, target, optimize, zigTray);
+    example(b, target, optimize, zig_tray);
 }
 
 /// for generate docs
-fn generateDocs(
-    b: *std.Build,
-    target: std.Build.ResolvedTarget,
-    optimize: std.builtin.OptimizeMode,
-) void {
+fn generateDocs(b: *std.Build, module: *std.Build.Module) void {
     const zig_tray_obj = b.addObject(.{
         .name = "zig-tray-obj",
-        .root_source_file = b.path("src/tray_windows.zig"),
-        .target = target,
-        .optimize = optimize,
+        .root_module = module,
     });
 
     const docs_step = b.step("docs", "Generate docs");
@@ -50,12 +46,16 @@ fn example(b: *std.Build, target: std.Build.ResolvedTarget, optimize: std.builti
     if (target.result.os.tag != .windows)
         return;
 
-    // build example
-    const exe = b.addExecutable(.{
-        .name = "zig-tray",
+    const exe_mod = b.createModule(.{
         .root_source_file = b.path("example/main.zig"),
         .target = target,
         .optimize = optimize,
+    });
+
+    // build example
+    const exe = b.addExecutable(.{
+        .name = "zig-tray",
+        .root_module = exe_mod,
     });
 
     exe.root_module.addImport("tray", module);

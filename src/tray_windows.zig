@@ -342,7 +342,7 @@ const BITMAPV5HEADER = lib_win.BITMAPV5HEADER;
 
 const ICONINFO = lib_win.ICONINFO;
 
-fn WndProc(hwnd: windows.HWND, uMsg: windows.UINT, wParam: windows.WPARAM, lParam: windows.LPARAM) callconv(windows.WINAPI) windows.LRESULT {
+fn WndProc(hwnd: windows.HWND, uMsg: windows.UINT, wParam: windows.WPARAM, lParam: windows.LPARAM) callconv(std.builtin.CallingConvention.winapi) windows.LRESULT {
     const tray_pointer = lib_win.GetWindowLongPtrA(hwnd, 0);
     if (tray_pointer == 0) {
         return lib_win.DefWindowProcA(hwnd, uMsg, wParam, lParam);
